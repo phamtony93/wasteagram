@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:wasteagram/models/post.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -21,20 +23,23 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: SafeArea(
       child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 100,
-              height: 100,
-              child: Image.network(post.imageUrl.toString())
+            Semantics(
+              child: Container(
+                width: 300,
+                height: 300,
+                child: Image.network(post.imageUrl.toString())
+              ),
+              readOnly: true,
+              image: true,
+              label: 'Photo of waste',
             ),
-            Text('${post.imageUrl}'),
-            Text(post.date.toString()),
-            Text('Item count is ${post.itemCount.toString()}'),
-            RaisedButton(
-              onPressed: () => getImage(),
-              child: Text('Upload Image'),
-            ),
+            // Text('${post.imageUrl}'),
+            Text(DateFormat.yMMMMEEEEd().format(post.date).toString()),
+            Text('Item count: ${post.itemCount.toString()}'),
+            Text('Location taken: (${post.latitude}, ${post.longitude})'),
           ]
         )
       )

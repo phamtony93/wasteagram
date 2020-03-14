@@ -14,16 +14,41 @@ class NewEntryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Wasteagram'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            width: 300,
-            height:300,
-            child: Image.file(image),
-          ),
-          NewPostForm(image: image),
-        ]
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      height:300,
+                      child: Image.file(image),
+                    ),
+                    NewPostForm(image: image),
+                  ]
+                )
+              )
+            ),
+          );
+        }
       )
     );
   }
 }
+
+
+// Column(
+//         children: [
+//           SizedBox(
+//             width: 300,
+//             height:300,
+//             child: Image.file(image),
+//           ),
+//           NewPostForm(image: image),
+//         ]
+//       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Screens/details_screen.dart';
 import 'Screens/list_screen.dart';
+import 'Screens/share_location_screen.dart';
 import 'Classes/test_image.dart';
 
 class App extends StatelessWidget {
