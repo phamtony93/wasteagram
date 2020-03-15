@@ -15,18 +15,11 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreen extends State<ListScreen> {
   File image;
-  // int totalCount = 0;
 
   @override
   void initState() {
     super.initState();
-    // getTotalCount();
   }
-
-
-  // void getTotalCount() {
-  //   Firestore.instance.collection('posts').snapshots();
-  // };
 
 
   @override
@@ -58,7 +51,7 @@ class _ListScreen extends State<ListScreen> {
         child: StreamBuilder(
           stream: Firestore.instance.collection('posts').orderBy('date', descending: true).snapshots(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && snapshot.data.documents.length > 0 && snapshot.data.documents != null) {
               return ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {

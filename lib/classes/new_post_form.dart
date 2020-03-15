@@ -1,14 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import 'package:wasteagram/models/post.dart';
 
 class NewPostForm extends StatefulWidget {
-  // final File image;
-  String imageUrl;
+  final String imageUrl;
   final Post post = Post();
 
   NewPostForm({this.imageUrl});
@@ -129,10 +127,6 @@ void retrieveLocation() async {
                   onPressed: () async {
                     if (formKey.currentState.validate()) {
                       formKey.currentState.save();
-                      // StorageReference storageReference = 
-                      //   FirebaseStorage.instance.ref().child(DateTime.now().toString());
-                      // StorageUploadTask uploadTask = storageReference.putFile(widget.image);
-                      // await uploadTask.onComplete;
                       Firestore.instance.collection('posts').add({
                         'itemCount': widget.post.itemCount,
                         'date': DateTime.now(),
@@ -140,10 +134,7 @@ void retrieveLocation() async {
                         'latitude': locationData.latitude.toString(),
                         'imageUrl': widget.imageUrl,
                       });
-                      // url = await storageReference.getDownloadURL();
-                      // print(url);
                       Navigator.pop(context);
-                      print('hello world');
                     }
                   },
                   child: Text('Upload')
