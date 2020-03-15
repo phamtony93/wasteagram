@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wasteagram/Screens/details_screen.dart';
@@ -114,7 +115,6 @@ class _ListScreen extends State<ListScreen> {
               child: SimpleDialogOption(
                 onPressed: () => {
                   getImageFromCamera(),
-                  print('Take Photo'),
                 },
                 child: Text('Take Photo'),
               ),
@@ -126,7 +126,6 @@ class _ListScreen extends State<ListScreen> {
               child: SimpleDialogOption(
                 onPressed: () => {
                   getImageFromCameraRoll(),
-                  print('Camera Roll'),
                 },
                 child: Text('Camera Roll')
               ),
@@ -138,7 +137,6 @@ class _ListScreen extends State<ListScreen> {
               child: SimpleDialogOption(
                 onPressed: () => {
                   Navigator.pop(context),
-                  print('Cancel'),
                 },
                 child: Text('Cancel'),
               ),
@@ -153,26 +151,47 @@ class _ListScreen extends State<ListScreen> {
   }
 
   void getImageFromCamera() async {
+    String imageUrl;
     image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState( (){});
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NewEntryScreen(image: image)
-      )
-    );
+    if (image != null) {
+      StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+      StorageUploadTask uploadTask = storageReference.putFile(image);
+      await uploadTask.onComplete;
+      imageUrl = await storageReference.getDownloadURL();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NewEntryScreen(image: image, imageUrl: imageUrl)
+        )
+      );
+    }
   }
 
   void getImageFromCameraRoll() async {
+    String imageUrl;
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState( (){});
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NewEntryScreen(image: image)
-      )
-    );
+    if (image != null) {
+      StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+      StorageUploadTask uploadTask = storageReference.putFile(image);
+      await uploadTask.onComplete;
+      imageUrl = await storageReference.getDownloadURL();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NewEntryScreen(image: image, imageUrl:imageUrl)
+        )
+      );
+    }
   }
+
+  // String uploadImage(image) async {
+  //   String imageUrl;
+  //   StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+  //   StorageUploadTask uploadTask = storageReference.putFile(image);
+  //   await uploadTask.onComplete;
+  //   imageUrl =  await storageReference.getDownloadURL();
+  //   return imageUrl;
+  // }
 }
 
 

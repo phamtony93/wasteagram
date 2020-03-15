@@ -6,8 +6,9 @@ import 'package:wasteagram/functions/padding.dart';
 class NewEntryScreen extends StatelessWidget {
   
   final File image;
+  final String imageUrl;
 
-  NewEntryScreen({this.image});
+  NewEntryScreen({this.image, this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class NewEntryScreen extends StatelessWidget {
                         height:300,
                         child: Image.file(image),
                       ),
-                      NewPostForm(image: image),
+                      NewPostForm(imageUrl: imageUrl),
                     ]
                   )
                 )

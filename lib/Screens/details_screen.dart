@@ -15,7 +15,6 @@ class DetailsScreen extends StatelessWidget {
   
   @override 
   Widget build(BuildContext context) {
-    print('entry is $post');
     return 
     Scaffold(
       appBar: AppBar(

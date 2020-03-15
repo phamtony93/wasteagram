@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:wasteagram/models/post.dart';
 
 class NewPostForm extends StatefulWidget {
-  final File image;
+  // final File image;
+  String imageUrl;
   final Post post = Post();
 
-  NewPostForm({this.image});
+  NewPostForm({this.imageUrl});
 
   @override
   _NewPostForm createState() => _NewPostForm();
@@ -128,19 +129,19 @@ void retrieveLocation() async {
                   onPressed: () async {
                     if (formKey.currentState.validate()) {
                       formKey.currentState.save();
-                      StorageReference storageReference = 
-                        FirebaseStorage.instance.ref().child(DateTime.now().toString());
-                      StorageUploadTask uploadTask = storageReference.putFile(widget.image);
-                      await uploadTask.onComplete;
+                      // StorageReference storageReference = 
+                      //   FirebaseStorage.instance.ref().child(DateTime.now().toString());
+                      // StorageUploadTask uploadTask = storageReference.putFile(widget.image);
+                      // await uploadTask.onComplete;
                       Firestore.instance.collection('posts').add({
                         'itemCount': widget.post.itemCount,
                         'date': DateTime.now(),
                         'longitude': locationData.longitude.toString(),
                         'latitude': locationData.latitude.toString(),
-                        'imageUrl': await storageReference.getDownloadURL(),
+                        'imageUrl': widget.imageUrl,
                       });
-                      url = await storageReference.getDownloadURL();
-                      print(url);
+                      // url = await storageReference.getDownloadURL();
+                      // print(url);
                       Navigator.pop(context);
                       print('hello world');
                     }
