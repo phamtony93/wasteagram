@@ -19,8 +19,8 @@ class NewPostForm extends StatefulWidget {
 class _NewPostForm extends State<NewPostForm> {
   String url;
   Location location;
-  LocationData _locationData;
-  bool _serviceEnabled;
+  // LocationData _locationData;
+  // bool _serviceEnabled;
   PermissionStatus permissionStatus;
   final formKey = GlobalKey<FormState>();
   LocationData locationData;
@@ -103,6 +103,7 @@ void retrieveLocation() async {
         key: formKey,
         child: Column(
           children: [
+            Container(height: 10),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Count',
@@ -119,6 +120,7 @@ void retrieveLocation() async {
               },
               keyboardType: TextInputType.number,
             ),
+            Container(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

@@ -32,19 +32,26 @@ class _ListScreen extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wasteagram'),
-        // StreamBuilder(
-        //   stream: Firestore.instance.collection('posts').snapshots(),
-        //   builder: (context, snapshot) {
-        //     var totalCount = 0;
-        //     var index;
-        //     for (index = 0; index < snapshot.data.documents.length; index++) {
-        //       totalCount += snapshot.data.documents[index]['itemCount'];
-        //     }
-        //     // setState((){});
-        //     return Text('$totalCount');
-        //   }
-        // ),
+        title: Center(
+          child: StreamBuilder(
+            stream: Firestore.instance.collection('posts').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data.documents.length > 0 && snapshot.data.documents != null) {
+                var totalCount = 0;
+                var index;
+                for (index = 0; index < snapshot.data.documents.length; index++) {
+                  if (snapshot.data.documents[index]['itemCount'] == null) {
+                  } else {
+                    totalCount += snapshot.data.documents[index]['itemCount'];
+                  }
+                }
+                return Text('Wasteagram - $totalCount');
+              } else {
+                return Text('Wasteagram');
+              }
+            }
+          ),
+        ),
       ),
       body: SafeArea(
         child: StreamBuilder(

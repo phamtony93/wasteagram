@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:wasteagram/classes/new_post_form.dart';
+import 'package:wasteagram/functions/padding.dart';
 
 class NewEntryScreen extends StatelessWidget {
   
@@ -16,39 +17,30 @@ class NewEntryScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      height:300,
-                      child: Image.file(image),
-                    ),
-                    NewPostForm(image: image),
-                  ]
+          return Padding(
+            padding: EdgeInsets.only(top: padding(context)),
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        height:300,
+                        child: Image.file(image),
+                      ),
+                      NewPostForm(image: image),
+                    ]
+                  )
                 )
-              )
-            ),
+              ),
+            )
           );
         }
       )
     );
   }
 }
-
-
-// Column(
-//         children: [
-//           SizedBox(
-//             width: 300,
-//             height:300,
-//             child: Image.file(image),
-//           ),
-//           NewPostForm(image: image),
-//         ]
-//       )
