@@ -14,7 +14,7 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreen extends State<ListScreen> {
   File image;
-  int totalCount = 0;
+  // int totalCount = 0;
 
   @override
   void initState() {
@@ -32,16 +32,17 @@ class _ListScreen extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wasteagram')
+        title: Text('Wasteagram'),
         // StreamBuilder(
         //   stream: Firestore.instance.collection('posts').snapshots(),
         //   builder: (context, snapshot) {
+        //     var totalCount = 0;
         //     var index;
         //     for (index = 0; index < snapshot.data.documents.length; index++) {
         //       totalCount += snapshot.data.documents[index]['itemCount'];
         //     }
-        //     setState((){});
-        //     return Text('Wasteagram - $totalCount');
+        //     // setState((){});
+        //     return Text('$totalCount');
         //   }
         // ),
       ),
